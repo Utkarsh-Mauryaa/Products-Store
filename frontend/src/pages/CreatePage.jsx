@@ -20,7 +20,13 @@ const CreatePage = ({notify, setNotify, addIcon, setAddIcon, success, setSuccess
   const addPro =  async (e) => {
     e.preventDefault();
     try {
-    const response = await axios.post("http://localhost:5000/api/products", {
+      let API_BASE;
+      if(process.env.NODE_ENV === "production") {
+          API_BASE = "https://products-store-rtc9.onrender.com/";
+      } else {
+        API_BASE = "http://localhost:5000/";
+      }
+    const response = await axios.post(`${API_BASE}api/products`, {
       name: proName.current.value,
       price: proPrice.current.value,
       image: proImg.current.value

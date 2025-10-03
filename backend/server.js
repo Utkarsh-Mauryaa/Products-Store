@@ -21,9 +21,13 @@ if(process.env.NODE_ENV === "production") {
 }
 const PORT = process.env.PORT || 5000;
 
+connectDB();
 app.listen(PORT, () => { // when the server starts this func runs.
-    connectDB();
-    console.log(`Server started at http://localhost:${PORT}`);
+    if(process.env.NODE_ENV === "production") {
+        console.log(`Server started at https://products-store-rtc9.onrender.com`);
+    } else {
+        console.log(`Server started at http://localhost:${PORT}`);
+    }
 });
 
 

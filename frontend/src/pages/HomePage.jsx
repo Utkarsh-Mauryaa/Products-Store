@@ -16,7 +16,14 @@ const HomePage = ({ addIcon, setAddIcon }) => {
   const getProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/products');
+      let API_BASE;
+      if(process.env.NODE_ENV === "production") {
+          API_BASE = "https://products-store-rtc9.onrender.com/";
+      } else {
+        API_BASE = "http://localhost:5000/";
+      }
+      console.log(`${API_BASE}api/products`);
+      const response = await axios.get(`${API_BASE}api/products`);
       const responseArr = response.data.data;
 
       setProducts(responseArr);

@@ -21,7 +21,13 @@ const Product = ({name, price, imageURL, id, products, addProducts}) => {
             </button>
             <button className='cursor-pointer' onClick={async () => {
                 try {
-                    const response = await axios.delete(`http://localhost:5000/api/products/${id}`);
+                    let API_BASE;
+                    if(process.env.NODE_ENV === "production") {
+                       API_BASE = "https://products-store-rtc9.onrender.com/";
+                    } else {
+                      API_BASE = "http://localhost:5000/";
+                    }
+                    const response = await axios.delete(`${API_BASE}api/products/${id}`);
                     let arr = products.filter((element) => element._id !== id);
                     addProducts(arr);
                     console.log(response.data);

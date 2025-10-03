@@ -8,7 +8,13 @@ const UpdateDialog = ({ updateDialog, setUpdateDialog, name, price, imageURL, id
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/products/${id}`, {
+      let API_BASE;
+      if(process.env.NODE_ENV === "production") {
+          API_BASE = "https://products-store-rtc9.onrender.com/";
+      } else {
+        API_BASE = "http://localhost:5000/";
+      }
+      const response = await axios.put(`${API_BASE}api/products/${id}`, {
         name: nameRef.current.value,
         price: priceRef.current.value,
         image: imgRef.current.value,
@@ -16,7 +22,7 @@ const UpdateDialog = ({ updateDialog, setUpdateDialog, name, price, imageURL, id
 
       let index = products.findIndex((product) => product._id === id);
       let updatedProArr = [...products];
-      let newResponse = await axios.get("http://localhost:5000/api/products");
+      let newResponse = await axios.get(`${API_BASE}api/products`);
       let newResponseArr = newResponse.data.data;
       let updatedProduct = newResponseArr.find((product) => product._id === id);
       updatedProArr[index] = updatedProduct;
