@@ -3,7 +3,7 @@
 
 A **full-stack MERN application** that allows users to:  
 
-* ➕ Add new products  
+* ➕ Add new products (use this website for selecting images for the products that you want to add : https://unsplash.com/ )  
 * ✏️ Update existing products  
 * ❌ Delete products  
 * 📊 View the total number of products added  
