@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
+const ObjectId = mongoose.ObjectId;
 const productSchema = new Schema({
     name: {
         type: String,
@@ -12,6 +13,10 @@ const productSchema = new Schema({
     },
     image: {
         type: String,
+        required: true
+    },
+    userId: {
+        type: ObjectId,
         required: true
     }
 }, {

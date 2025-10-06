@@ -18,11 +18,19 @@ const UpdateDialog = ({ updateDialog, setUpdateDialog, name, price, imageURL, id
         name: nameRef.current.value,
         price: priceRef.current.value,
         image: imgRef.current.value,
+      },{
+        headers: {
+          authorization: localStorage.getItem("token")
+        }
       });
 
       let index = products.findIndex((product) => product._id === id);
       let updatedProArr = [...products];
-      let newResponse = await axios.get(`${API_BASE}api/products`);
+      let newResponse = await axios.get(`${API_BASE}api/products`,{
+        headers: {
+          authorization: localStorage.getItem("token")
+        }
+      });
       let newResponseArr = newResponse.data.data;
       let updatedProduct = newResponseArr.find((product) => product._id === id);
       updatedProArr[index] = updatedProduct;

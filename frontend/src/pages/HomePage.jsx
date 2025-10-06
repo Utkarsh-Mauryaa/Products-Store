@@ -21,11 +21,15 @@ const HomePage = ({ addIcon, setAddIcon }) => {
       } else {
         API_BASE = "http://localhost:5000/";
       }
-      const response = await axios.get(`${API_BASE}api/products`);
+      const response = await axios.get(`${API_BASE}api/products`,{
+        headers: {
+          authorization: localStorage.getItem("token")
+        }
+      });
       const responseArr = response.data.data;
       setProducts(responseArr);
     } catch (e) {
-      console.log(e.response?.data?.message || e.message);
+      console.log(e.response.data.message || e.message);
       setProducts([]);
     } finally {
       setLoading(false);
@@ -60,7 +64,7 @@ const HomePage = ({ addIcon, setAddIcon }) => {
             />
           ))
         ) : (
-          <span className="text-3xl text-center col-span-full">No Products Exist</span>
+          <span className="text-3xl text-center col-span-full dark:text-sky-500">No Products Exist</span>
         )}
 
       </div>

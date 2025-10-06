@@ -3,6 +3,10 @@ import HomePage from './pages/HomePage';
 import Navbar from './components/Navbar';
 import {BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useRef, useState } from 'react';
+import SignUp from './pages/SignUp';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import SignIn from './pages/SignIn';
 
 
 
@@ -25,12 +29,15 @@ function App() {
   
   return (
     <>
+    <ToastContainer/>
      <div ref={divi} className={` ${isDark ? 'dark' : ''} ${getBackgroundClass()} transition duration-300 ease-in-out min-h-screen`}>
       <BrowserRouter>
       <Navbar bodyElem={divi} addIcon={addIcon} setAddIcon={setAddIcon} isDark={isDark} setIsDark={setIsDark}/>
       <Routes>
-        <Route path='/' element={<HomePage addIcon={addIcon} setAddIcon={setAddIcon}/>} />
-        <Route path='/create' element={<CreatePage notify={notify} setNotify={setNotify} addIcon={addIcon} setAddIcon={setAddIcon} success={success} setSuccess={setSuccess}/>}/>
+      <Route path={'/'} element={<SignUp/>}/>
+      <Route path={'/signin'} element={<SignIn/>}/>
+      <Route path='/home' element={<HomePage addIcon={addIcon} setAddIcon={setAddIcon}/>} />
+      <Route path='/create' element={<CreatePage notify={notify} setNotify={setNotify} addIcon={addIcon} setAddIcon={setAddIcon} success={success} setSuccess={setSuccess}/>}/>
       </Routes>
       </BrowserRouter>
      </div>

@@ -2,8 +2,10 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import productRouter from './routes/product.route.js';
+import userRouter from './routes/user.route.js';
 import cors from 'cors';
 import path from 'path';
+import auth from './middlewares/auth.middleware.js';
 const __dirname = path.resolve();
 
 
@@ -12,6 +14,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const absolutePath = path.join(__dirname, "/frontend/dist"); //__dirname does not come as default if the mode is module type, it is available as default in commonjs type
+app.use("/api/users", userRouter);
+app.use(auth);
 app.use("/api/products", productRouter);
 if(process.env.NODE_ENV === "production") {
     app.use(express.static(absolutePath));

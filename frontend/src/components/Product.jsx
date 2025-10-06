@@ -27,7 +27,11 @@ const Product = ({name, price, imageURL, id, products, addProducts}) => {
                     } else {
                       API_BASE = "http://localhost:5000/";
                     }
-                    const response = await axios.delete(`${API_BASE}api/products/${id}`);
+                    const response = await axios.delete(`${API_BASE}api/products/${id}`,{
+                        headers: {
+                            authorization: localStorage.getItem("token")
+                        }
+                    });
                     let arr = products.filter((element) => element._id !== id);
                     addProducts(arr);
                     console.log(response.data);
