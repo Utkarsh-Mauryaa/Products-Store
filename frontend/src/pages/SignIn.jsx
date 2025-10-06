@@ -13,34 +13,40 @@ const SignIn = () => {
     async function signup(e) {
         e.preventDefault();
         try {
-        const response = await axios.post("http://localhost:5000/api/users/signin",{
-            email: inEmail.current.value,
-            password: inPass.current.value
-        });
-        toast.success(`${response.data.message}`, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "colored",
-            onClose: () => navigate("/create")
-        });
-        localStorage.setItem("token", response.data.token);
-        
+            let API_BASE;
+            if (process.env.NODE_ENV === "production") {
+                API_BASE = "https://products-store-rtc9.onrender.com/";
+            } else {
+                API_BASE = "http://localhost:5000/";
+            }
+            const response = await axios.post(`${API_BASE}api/users/signin`, {
+                email: inEmail.current.value,
+                password: inPass.current.value
+            });
+            toast.success(`${response.data.message}`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "colored",
+                onClose: () => navigate("/create")
+            });
+            localStorage.setItem("token", response.data.token);
 
-    } catch(e) {
-        toast.error(`${e.response.data.message}`, {
-            position: "top-right",   // top-left, top-center, bottom-right, etc.
-            autoClose: 3000,         // 3 seconds
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "colored"         // light, dark, colored
-        });
-    }
+
+        } catch (e) {
+            toast.error(`${e.response.data.message}`, {
+                position: "top-right",   // top-left, top-center, bottom-right, etc.
+                autoClose: 3000,         // 3 seconds
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "colored"         // light, dark, colored
+            });
+        }
 
     }
     return (
